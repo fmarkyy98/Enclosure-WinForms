@@ -12,6 +12,7 @@ namespace Enclosure_WinForms
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
+            // Initialize injections.
             Persistance.DataAccess dataAccess = new();
             Model.EnclosureModel model = new(dataAccess);
 
