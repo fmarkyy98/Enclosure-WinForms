@@ -4,34 +4,51 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Enclosure_WinForms.Persistance;
+
 namespace Enclosure_WinForms.Model
 {
-    enum Player { Red, Blue };
+    
     enum FieldState { Free, RedPlaced, BluePlaced, RedCaptured, BlueCaptured };
-    enum GameSize { Small = 6, Medium = 8, Large = 10 };
 
-    public struct Scores
+    struct Scores
     {
         public int Red;
         public int Blue;
     }
 
-    internal class EnclosureModel
+    internal class EnclosureModel : IEnclosureModel
     {
-        public EnclosureModel()
+        public EnclosureModel(IDataAccess dataAccess)
         {
             initGame(GameSize.Small);
+            dataAccess_ = dataAccess;
         }
 
-        public void initGame(GameSize gameSize)
+        public void NewGame(GameSize gameSize)
+        {
+            initGame(gameSize); 
+        }
+
+        public event EventHandler<Player> CurrentPlayerCnahged;
+        public event EventHandler<Scores> ScoresCnahged;
+        public event EventHandler<FieldState[,]> BoardCnahged;
+
+        private void initGame(GameSize gameSize)
         {
             currentPlayer_ = Player.Blue;
+            CurrentPlayerCnahged?.Invoke(this, currentPlayer_);
+
             scores.Blue = scores.Red = 0;
+            ScoresCnahged?.Invoke(this, scores);  
 
             int size = (int)gameSize;
             FieldState[,] board_ = new FieldState[size, size];
+            BoardCnahged?.Invoke(this, board_);
         }
-        
+
+        IDataAccess dataAccess_;
+
         Player currentPlayer_;
         Scores scores;
         FieldState[,] board_; 
