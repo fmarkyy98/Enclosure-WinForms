@@ -36,6 +36,7 @@
             this.saveBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.loadBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,19 +65,19 @@
             // smallBtn
             // 
             this.smallBtn.Name = "smallBtn";
-            this.smallBtn.Size = new System.Drawing.Size(180, 22);
+            this.smallBtn.Size = new System.Drawing.Size(110, 22);
             this.smallBtn.Text = "6 x 6";
             // 
             // mediumBtn
             // 
             this.mediumBtn.Name = "mediumBtn";
-            this.mediumBtn.Size = new System.Drawing.Size(180, 22);
+            this.mediumBtn.Size = new System.Drawing.Size(110, 22);
             this.mediumBtn.Text = "8 x 8";
             // 
             // largeBtn
             // 
             this.largeBtn.Name = "largeBtn";
-            this.largeBtn.Size = new System.Drawing.Size(180, 22);
+            this.largeBtn.Size = new System.Drawing.Size(110, 22);
             this.largeBtn.Text = "10 x 10";
             // 
             // saveBtn
@@ -99,11 +100,24 @@
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 404);
+            this.tableLayoutPanel1.TabIndex = 2;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -126,5 +140,6 @@
         private ToolStripMenuItem saveBtn;
         private ToolStripMenuItem loadBtn;
         private StatusStrip statusStrip1;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }
