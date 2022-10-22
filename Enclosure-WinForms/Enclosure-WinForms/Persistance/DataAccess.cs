@@ -8,5 +8,7 @@ namespace Enclosure_WinForms.Persistance
 {
     internal class DataAccess : IDataAccess
     {
+        public void SaveAsync(String fileName) { }
+        public void LoadAsync() { }
     }
 }
