@@ -111,7 +111,6 @@ namespace Enclosure_WinForms
                 {
                     await model.LoadAsync(openFileDialog1.FileName);
                     InitBoard((GameSize)model.BoardSize);
-                   // Model_BoardChanged(this, new Model.IndexChangesEventArgs());
                 }
             };
 
