@@ -27,9 +27,11 @@ namespace Enclosure_WinForms.Model
         public event EventHandler<FieldState[,]> BoardCnahged;
         public event EventHandler<Tuple<int, int>> RecursionStarted;
         public event EventHandler<Tuple<int, int>> RecursionFinished;
+        public event EventHandler<bool> savabilityChanged;
         public void NewGame(GameSize gameSize = GameSize.Small);
         public void ClickedAt(int x, int y);
         public Task SaveAsync(String filename);
         public Task LoadAsync(String filename);
+        public void FullRefresh();
     }
 }

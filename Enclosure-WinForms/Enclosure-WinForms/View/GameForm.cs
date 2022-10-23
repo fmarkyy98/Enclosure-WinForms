@@ -82,6 +82,8 @@ namespace Enclosure_WinForms
                     NewGame((GameSize)model.BoardSize);
             };
 
+            model.savabilityChanged += (_, enabled) => { saveBtn.Enabled = enabled; };
+
             showRecurion.Click += (_, _) =>
             {
                 if (showRecurion.Checked)
@@ -111,6 +113,7 @@ namespace Enclosure_WinForms
                 {
                     await model.LoadAsync(openFileDialog1.FileName);
                     InitBoard((GameSize)model.BoardSize);
+                    model.FullRefresh();
                 }
             };
 

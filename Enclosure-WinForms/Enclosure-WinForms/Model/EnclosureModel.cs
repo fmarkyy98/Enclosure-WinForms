@@ -29,6 +29,7 @@ namespace Enclosure_WinForms.Model
         public event EventHandler<FieldState[,]> BoardCnahged;
         public event EventHandler<Tuple<int, int>> RecursionStarted;
         public event EventHandler<Tuple<int, int>> RecursionFinished;
+        public event EventHandler<bool> savabilityChanged;
 
         // public:
         public int BoardSize { get { return board_.GetLength(0); } }
@@ -54,6 +55,8 @@ namespace Enclosure_WinForms.Model
                 if (board_[x, y] != FieldState.Free || !HasFreeNeighbour(x, y))
                     return;
 
+                savabilityChanged?.Invoke(this, false);
+
                 board_[x, y] = (FieldState)currentPlayer_;
                 BoardCnahged?.Invoke(this, board_);
                 lastClickPos = new(x, y);
@@ -62,6 +65,8 @@ namespace Enclosure_WinForms.Model
             {
                 if (board_[x, y] != FieldState.Free || !HasCommonNeighbour(x, y))
                     return;
+
+                savabilityChanged?.Invoke(this, true);
 
                 board_[x, y] = (FieldState)currentPlayer_;
                 BoardCnahged?.Invoke(this, board_);
@@ -90,12 +95,46 @@ namespace Enclosure_WinForms.Model
 
         public async Task SaveAsync(String filename)
         {
+            if (lastClickPos != null)
+                return;
 
+            List<int> data = new List<int>();
+            data.Add(BoardSize);
+            data.Add((int)currentPlayer_);
+            data.Add(scores.Blue);
+            data.Add(scores.Red);
+            for (int i = 0; i < BoardSize; ++i)
+            {
+                for (int j = 0; j < BoardSize; ++j)
+                {
+                    data.Add((int)board_[j, i]);
+                }
+            }
+
+            await dataAccess_.SaveAsync(filename, data);
         }
 
         public async Task LoadAsync(String filename)
         {
+            List<int> data = await dataAccess_.LoadAsync(filename);
+            initGame((GameSize)data.First()); data.RemoveAt(0);
+            currentPlayer_ = (Player)data.First(); data.RemoveAt(0);
+            scores.Red = data.First(); data.RemoveAt(0);
+            scores.Blue = data.First(); data.RemoveAt(0);
+            for (int i = 0; i < BoardSize; ++i)
+            {
+                for (int j = 0; j < BoardSize; ++j)
+                {
+                    board_[j, i] = (FieldState)data.First(); data.RemoveAt(0);
+                }
+            }
+        }
 
+        public void FullRefresh()
+        {
+            BoardCnahged?.Invoke(this, board_);
+            ScoresCnahged?.Invoke(this, scores);
+            CurrentPlayerCnahged?.Invoke(this, currentPlayer_);
         }
 
         // private:
