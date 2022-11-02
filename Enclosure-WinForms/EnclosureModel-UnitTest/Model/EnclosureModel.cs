@@ -116,7 +116,6 @@ namespace Enclosure_WinForms.Model
 
         public async Task LoadAsync(String filename)
         {
-            loadFinished = false;
             List<int> data = await dataAccess_.LoadAsync(filename);
             initGame((GameSize)data.First()); data.RemoveAt(0);
             currentPlayer_ = (Player)data.First(); data.RemoveAt(0);
@@ -129,7 +128,6 @@ namespace Enclosure_WinForms.Model
                     board_[j, i] = (FieldState)data.First(); data.RemoveAt(0);
                 }
             }
-            loadFinished = true;
         }
 
         public void FullRefresh()
@@ -143,20 +141,14 @@ namespace Enclosure_WinForms.Model
         private void initGame(GameSize gameSize)
         {
             currentPlayer_ = Player.Blue;
-
-            if (loadFinished)
-                CurrentPlayerCnahged?.Invoke(this, currentPlayer_);
+            CurrentPlayerCnahged?.Invoke(this, currentPlayer_);
 
             scores.Blue = scores.Red = 0;
-
-            if (loadFinished)
-                ScoresCnahged?.Invoke(this, scores);
+            ScoresCnahged?.Invoke(this, scores);
 
             int size = (int)gameSize;
             board_ = new FieldState[size, size];
-
-            if (loadFinished)
-                BoardCnahged?.Invoke(this, board_);
+            BoardCnahged?.Invoke(this, board_);
 
             lastClickPos = null;
         }
@@ -336,12 +328,10 @@ namespace Enclosure_WinForms.Model
 
         IDataAccess dataAccess_;
 
-        Player currentPlayer_;
-        Scores scores;
-        FieldState[,] board_;
+        public Player currentPlayer_;
+        public Scores scores;
+        public FieldState[,] board_;
 
         Pos? lastClickPos = null;
-
-        bool loadFinished = true;
     }
 }
