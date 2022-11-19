@@ -77,19 +77,19 @@
             // smallBtn
             // 
             this.smallBtn.Name = "smallBtn";
-            this.smallBtn.Size = new System.Drawing.Size(110, 22);
+            this.smallBtn.Size = new System.Drawing.Size(180, 22);
             this.smallBtn.Text = "6 x 6";
             // 
             // mediumBtn
             // 
             this.mediumBtn.Name = "mediumBtn";
-            this.mediumBtn.Size = new System.Drawing.Size(110, 22);
+            this.mediumBtn.Size = new System.Drawing.Size(180, 22);
             this.mediumBtn.Text = "8 x 8";
             // 
             // largeBtn
             // 
             this.largeBtn.Name = "largeBtn";
-            this.largeBtn.Size = new System.Drawing.Size(110, 22);
+            this.largeBtn.Size = new System.Drawing.Size(180, 22);
             this.largeBtn.Text = "10 x 10";
             // 
             // saveBtn
